@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.pyc
+.python-version
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment variables
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Excel temporary/lock files
+~$*.xlsx
+*.tmp
+
+# Logs
+*.log
+
+# Backup
+_backup_before_github_cleanup/
+*.bak
+
+# Original root-level files (duplicated in subdirectories)
+/GIS_Data_Repositories_Professional_2026.xlsx
+/gis_sources_map.geojson
+/Check-URLs.ps1
+
+# Old Python scripts at root (moved to scripts/)
+/update_free_gis_data.py
+
+# Release artifacts (keep if tracking, but usually generated)
+release/*.zip
+release/*.txt
+release/*.md
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Windows
+$RECYCLE.BIN/
+
+# Everything below is tracked:
+# data/*.csv  data/*.json  data/*.geojson
+# docs/index.html
+# README.md  LICENSE  CHANGELOG.md
+
+release/*SHA256*.txt

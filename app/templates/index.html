@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GIS Data Repositories — Search</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid py-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1><i class="bi bi-globe2"></i> GIS Data Repositories <small>{{ total }} entries</small></h1>
+    <span id="stats">
+      <span class="badge bg-success me-1"><span id="countWorking">{{ working }}</span> Working</span>
+      <span class="badge bg-warning text-dark me-1"><span id="countRedirected">{{ redirected }}</span> Redirected</span>
+      <span class="badge bg-danger me-1"><span id="countBroken">{{ broken }}</span> Issues</span>
+      <span class="badge bg-secondary me-1">{{ num_categories }} Categories</span>
+    </span>
+  </div>
+
+  <div class="row g-2 mb-3 filters">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header py-1"><i class="bi bi-search"></i> Search</div>
+        <div class="card-body py-2">
+          <input id="search" class="form-control form-control-sm" placeholder="Type to search names, descriptions, URLs..." oninput="filterData()">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="card">
+        <div class="card-header py-1"><i class="bi bi-folder"></i> Category</div>
+        <div class="card-body py-2">
+          <select id="category" class="form-select form-select-sm" onchange="filterData()">
+            <option value="">All Categories</option>
+            {% for c in categories %}
+            <option value="{{ c }}">{{ c }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="card">
+        <div class="card-header py-1"><i class="bi bi-activity"></i> Status</div>
+        <div class="card-body py-2">
+          <select id="status" class="form-select form-select-sm" onchange="filterData()">
+            <option value="">All Statuses</option>
+            {% for s in statuses %}
+            <option value="{{ s }}">{{ s }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="card">
+        <div class="card-header py-1"><i class="bi bi-file-earmark-bar-graph"></i> Data Type</div>
+        <div class="card-body py-2">
+          <select id="dataType" class="form-select form-select-sm" onchange="filterData()">
+            <option value="">All Types</option>
+            {% for t in data_types %}
+            <option value="{{ t }}">{{ t }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 d-flex align-items-end gap-2">
+      <button class="btn btn-sm btn-outline-info" onclick="clearFilters()"><i class="bi bi-x-lg"></i> Clear</button>
+      <span id="count" class="badge bg-primary fs-6">{{ total }}</span>
+    </div>
+  </div>
+
+  <div id="loading" class="text-center py-4"><div class="spinner-border text-primary"></div></div>
+  <div id="results" class="row g-2"></div>
+</div>
+
+<script>
+const DATA = {{ data | tojson }};
+</script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

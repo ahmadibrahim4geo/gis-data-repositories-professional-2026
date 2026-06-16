@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GIS Data Repositories Professional 2026 — Demo</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body { background: #0f172a; color: #e2e8f0; }
+h1 small { font-size: .5em; opacity: .6; }
+.filters .card { background: #1e293b; border: 1px solid #334155; }
+.filters .card-header { background: #334155; border-bottom: 1px solid #475569; }
+#stats .badge { font-size: .8rem; }
+#results .card { background: #1e293b; border: 1px solid #334155; transition: .2s; }
+#results .card:hover { border-color: #3b82f6; box-shadow: 0 0 12px rgba(59,130,246,.15); }
+#results .card-header { background: #334155; border-bottom: 1px solid #475569; font-weight: 600; }
+.form-control, .form-select { background: #0f172a; border: 1px solid #334155; color: #e2e8f0; }
+.form-control:focus, .form-select:focus { background: #0f172a; border-color: #3b82f6; color: #e2e8f0; box-shadow: 0 0 0 .2rem rgba(59,130,246,.25); }
+.badge-cat { background: #1e40af; }
+footer { border-top: 1px solid #334155; font-size: .85rem; }
+a { color: #60a5fa; }
+</style>
+</head>
+<body>
+<div class="container-fluid py-3">
+  <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+    <h1><i class="bi bi-globe2"></i> GIS Data Repositories <small id="totalCount">loading...</small></h1>
+    <span id="stats">
+      <span class="badge bg-success me-1"><span id="countWorking">0</span> Working</span>
+      <span class="badge bg-warning text-dark me-1"><span id="countRedirected">0</span> Redirected</span>
+      <span class="badge bg-danger me-1"><span id="countBroken">0</span> Issues</span>
+      <span class="badge bg-secondary me-1" id="catCount">0 Categories</span>
+    </span>
+  </div>
+
+  <div class="row g-2 mb-3 filters">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header py-1"><b>Search</b></div>
+        <div class="card-body py-2">
+          <input id="search" class="form-control form-control-sm" placeholder="Type to search..." oninput="filterData()">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="card">
+        <div class="card-header py-1"><b>Category</b></div>
+        <div class="card-body py-2">
+          <select id="category" class="form-select form-select-sm" onchange="filterData()">
+            <option value="">All</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="card">
+        <div class="card-header py-1"><b>Status</b></div>
+        <div class="card-body py-2">
+          <select id="status" class="form-select form-select-sm" onchange="filterData()">
+            <option value="">All</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="card">
+        <div class="card-header py-1"><b>Data Type</b></div>
+        <div class="card-body py-2">
+          <select id="dataType" class="form-select form-select-sm" onchange="filterData()">
+            <option value="">All</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 d-flex align-items-end gap-2">
+      <button class="btn btn-sm btn-outline-info" onclick="clearFilters()">Clear</button>
+      <span id="count" class="badge bg-primary fs-6">0</span>
+    </div>
+  </div>
+
+  <div id="results" class="row g-2"></div>
+
+  <footer class="mt-4 pt-3 text-center text-muted">
+    <p>GIS Data Repositories Professional 2026 — Static Demo for GitHub Pages</p>
+    <p>Data licenses belong to original data providers. <a href="https://github.com/ahmadibrahim4geo/gis-data-repositories-professional-2026" target="_blank">GitHub Repository</a></p>
+  </footer>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<script>
+let DATA = [];
+
+function getVal(d, ...keys) {
+  for (const k of keys) { const v = d[k]; if (v) return v; }
+  return '';
+}
+
+function statusBadge(s) {
+  const m = {'Working':'success','Redirected':'warning text-dark','Broken (404)':'danger','Broken':'danger','Dead Domain':'danger','Timeout':'warning text-dark','Access Restricted':'secondary','SSL Error':'warning','Server Error':'danger'};
+  return `<span class="badge bg-${m[s]||'secondary'}">${s}</span>`;
+}
+
+function populateSelect(id, values) {
+  const sel = document.getElementById(id);
+  values.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; sel.appendChild(o); });
+}
+
+async function loadData() {
+  try {
+    let resp = await fetch('data/master_index.json');
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    DATA = await resp.json();
+  } catch(e) {
+    document.getElementById('results').innerHTML = `<div class="col-12 text-center py-5"><h3>Data not available</h3><p class="text-muted">${e.message}</p><p>Run the export script first: <code>python scripts/export_excel_to_csv_json.py</code> and copy JSON to <code>docs/data/</code></p></div>`;
+    return;
+  }
+  const cats = [...new Set(DATA.map(d => getVal(d, 'Category', 'category')).filter(Boolean))].sort();
+  const sts = [...new Set(DATA.map(d => getVal(d, 'Link Status', 'status')).filter(Boolean))].sort();
+  const dts = [...new Set(DATA.map(d => getVal(d, 'Data Type', 'data_type')).filter(Boolean))].sort();
+  populateSelect('category', cats);
+  populateSelect('status', sts);
+  populateSelect('dataType', dts);
+  document.getElementById('catCount').textContent = cats.length + ' Categories';
+  filterData();
+}
+
+function filterData() {
+  const q = document.getElementById('search').value.toLowerCase().trim();
+  const cat = document.getElementById('category').value;
+  const st = document.getElementById('status').value;
+  const dt = document.getElementById('dataType').value;
+
+  const filtered = DATA.filter(d => {
+    const name = getVal(d, 'Source Name', 'name').toLowerCase();
+    const desc = getVal(d, 'Description', 'description').toLowerCase();
+    const url = getVal(d, 'Updated URL', 'Original URL', 'URL', 'url').toLowerCase();
+    const domain = getVal(d, 'Domain', 'domain').toLowerCase();
+    const notes = getVal(d, 'Notes', 'notes').toLowerCase();
+    if (q && !(name.includes(q) || desc.includes(q) || url.includes(q) || domain.includes(q) || notes.includes(q))) return false;
+    if (cat && getVal(d, 'Category', 'category') !== cat) return false;
+    if (st && getVal(d, 'Link Status', 'status') !== st) return false;
+    if (dt && getVal(d, 'Data Type', 'data_type') !== dt) return false;
+    return true;
+  });
+
+  document.getElementById('totalCount').textContent = DATA.length + ' entries';
+  document.getElementById('count').textContent = filtered.length;
+
+  const stats = {Working:0,Redirected:0,Broken:0};
+  filtered.forEach(d => {
+    const s = getVal(d, 'Link Status', 'status');
+    if (s === 'Working') stats.Working++;
+    else if (s === 'Redirected') stats.Redirected++;
+    else stats.Broken++;
+  });
+  document.getElementById('countWorking').textContent = stats.Working;
+  document.getElementById('countRedirected').textContent = stats.Redirected;
+  document.getElementById('countBroken').textContent = stats.Broken;
+
+  render(filtered);
+}
+
+function render(data) {
+  const c = document.getElementById('results');
+  if (!data.length) {
+    c.innerHTML = '<div class="col-12 text-center py-4 text-muted"><i class="bi bi-inbox fs-1"></i><p class="mt-2">No matching entries</p></div>';
+    return;
+  }
+  c.innerHTML = data.map(d => {
+    const name = getVal(d, 'Source Name', 'name') || '<em>Unnamed</em>';
+    const desc = getVal(d, 'Description', 'description');
+    const url = getVal(d, 'Updated URL', 'Original URL', 'URL', 'url');
+    const domain = getVal(d, 'Domain', 'domain');
+    const category = getVal(d, 'Category', 'category');
+    const status = getVal(d, 'Link Status', 'status');
+    const dtype = getVal(d, 'Data Type', 'data_type');
+    const coverage = getVal(d, 'Coverage', 'coverage');
+    const license = getVal(d, 'License Type', 'license');
+    const notes = getVal(d, 'Notes', 'notes');
+
+    return `<div class="col-lg-4 col-md-6">
+      <div class="card h-100">
+        <div class="card-header py-1 d-flex justify-content-between align-items-center">
+          <span class="small text-truncate me-1">${name}</span>
+          <span class="badge badge-cat flex-shrink-0">${category || '—'}</span>
+        </div>
+        <div class="card-body py-2 small">
+          <p class="mb-1">${desc || '<span class="text-muted">No description</span>'}</p>
+          <div class="mb-1">${statusBadge(status)}</div>
+          ${url ? `<div class="text-truncate mb-1"><i class="bi bi-link-45deg"></i> <a href="${url}" target="_blank" style="word-break:break-all">${url}</a></div>` : ''}
+          <div class="text-muted"><i class="bi bi-building"></i> ${domain || '—'}</div>
+          <div class="text-muted"><i class="bi bi-file-earmark-bar-graph"></i> ${dtype || '—'} ${coverage ? '| ' + coverage : ''}</div>
+          ${license ? `<div class="text-muted small"><i class="bi bi-info-circle"></i> ${license}</div>` : ''}
+          ${notes ? `<div class="text-muted small mt-1"><i class="bi bi-sticky"></i> ${notes}</div>` : ''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function clearFilters() {
+  document.getElementById('search').value = '';
+  document.getElementById('category').value = '';
+  document.getElementById('status').value = '';
+  document.getElementById('dataType').value = '';
+  filterData();
+}
+
+loadData();
+</script>
+</body>
+</html>

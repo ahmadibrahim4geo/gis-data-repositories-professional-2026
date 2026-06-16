@@ -1,0 +1,11 @@
+source_id,name,url,status_code,status,final_url,error,checked_at
+1,Alexandria Global Digital LIbrary at UC Santa Barbara,https://alexandria.ucsb.edu/,200,Working,https://alexandria.ucsb.edu/,,2026-06-16T22:27:19.909505+00:00
+2,Amazon Web Services Public Geographic Data Sets,https://registry.opendata.aws/,200,Working,https://registry.opendata.aws/,,2026-06-16T22:27:19.909505+00:00
+3,ArcGIS Online,https://www.arcgis.com/home/index.html,200,Working,https://www.arcgis.com/home/index.html,,2026-06-16T22:27:19.909505+00:00
+5,CEOS International Directory Network,https://ceos.org/,200,Working,https://ceos.org/,,2026-06-16T22:27:19.909505+00:00
+8,CIA World DataBank II,http://www.evl.uic.edu/pape/data/WDB/,0,Timeout,,timed out,2026-06-16T22:27:19.909505+00:00
+9,CIAT GeoNetwork,http://gisweb.ciat.cgiar.org:8080/geonetwork/srv/en/main.home,0,Timeout,,timed out,2026-06-16T22:27:19.909505+00:00
+10,CloudMade,http://downloads.cloudmade.com/,0,Timeout,,timed out,2026-06-16T22:27:19.909505+00:00
+11,Copernicus Emergency Management Service (previously GMES),https://web.archive.org/web/20241223060851/https://emergency.copernicus.eu/mapping/copernicus-emergency-management-service#zoom=2&lat=37.17407&lon=69.65&layers=T00000B0,200,Working,https://web.archive.org/web/20241223060851/https://emergency.copernicus.eu/mapping/copernicus-emergency-management-service#zoom=2&lat=37.17407&lon=69.65&layers=T00000B0,,2026-06-16T22:27:19.909505+00:00
+12,Crisis Mapping Deployments,https://docs.google.com/spreadsheet/ccc?authkey=CMTsxqsP&key=0Am3aiDauTC9ndHFOdGxsM2lnTUJXUDR3LVVIZjJnUGc&authkey=CMTsxqsP#gid=0,410,Broken (410),https://docs.google.com/spreadsheets/d/1gCMxRX38egTj3mthZKB88BODsqVG3hjGLox2rRBeiSw/edit?authkey=CMTsxqsP&authkey=CMTsxqsP,HTTP Error 410: Gone,2026-06-16T22:27:19.909505+00:00
+13,datacatalogs.org,https://dataportals.org/,200,Working,https://dataportals.org/,,2026-06-16T22:27:19.909505+00:00

@@ -1,0 +1,102 @@
+[
+  {
+    "status_code": 200,
+    "status": "Working",
+    "final_url": "https://alexandria.ucsb.edu/",
+    "error": "",
+    "source_id": 1,
+    "name": "Alexandria Global Digital LIbrary at UC Santa Barbara",
+    "url": "https://alexandria.ucsb.edu/",
+    "checked_at": "2026-06-16T22:27:19.909505+00:00"
+  },
+  {
+    "status_code": 200,
+    "status": "Working",
+    "final_url": "https://registry.opendata.aws/",
+    "error": "",
+    "source_id": 2,
+    "name": "Amazon Web Services Public Geographic Data Sets",
+    "url": "https://registry.opendata.aws/",
+    "checked_at": "2026-06-16T22:27:19.909505+00:00"
+  },
+  {
+    "status_code": 200,
+    "status": "Working",
+    "final_url": "https://www.arcgis.com/home/index.html",
+    "error": "",
+    "source_id": 3,
+    "name": "ArcGIS Online",
+    "url": "https://www.arcgis.com/home/index.html",
+    "checked_at": "2026-06-16T22:27:19.909505+00:00"
+  },
+  {
+    "status_code": 200,
+    "status": "Working",
+    "final_url": "https://ceos.org/",
+    "error": "",
+    "source_id": 5,
+    "name": "CEOS International Directory Network",
+    "url": "https://ceos.org/",
+    "checked_at": "2026-06-16T22:27:19.909505+00:00"
+  },
+  {
+    "status_code": 0,
+    "status": "Timeout",
+    "final_url": "",
+    "error": "timed out",
+    "source_id": 8,
+    "name": "CIA World DataBank II",
+    "url": "http://www.evl.uic.edu/pape/data/WDB/",
+    "checked_at": "2026-06-16T22:27:19.909505+00:00"
+  },
+  {
+    "status_code": 0,
+    "status": "Timeout",
+    "final_url": "",
+    "error": "timed out",
+    "source_id": 9,
+    "name": "CIAT GeoNetwork",
+    "url": "http://gisweb.ciat.cgiar.org:8080/geonetwork/srv/en/main.home",
+    "checked_at": "2026-06-16T22:27:19.909505+00:00"
+  },
+  {
+    "status_code": 0,
+    "status": "Timeout",
+    "final_url": "",
+    "error": "timed out",
+    "source_id": 10,
+    "name": "CloudMade",
+    "url": "http://downloads.cloudmade.com/",
+    "checked_at": "2026-06-16T22:27:19.909505+00:00"
+  },
+  {
+    "status_code": 200,
+    "status": "Working",
+    "final_url": "https://web.archive.org/web/20241223060851/https://emergency.copernicus.eu/mapping/copernicus-emergency-management-service#zoom=2&lat=37.17407&lon=69.65&layers=T00000B0",
+    "error": "",
+    "source_id": 11,
+    "name": "Copernicus Emergency Management Service (previously GMES)",
+    "url": "https://web.archive.org/web/20241223060851/https://emergency.copernicus.eu/mapping/copernicus-emergency-management-service#zoom=2&lat=37.17407&lon=69.65&layers=T00000B0",
+    "checked_at": "2026-06-16T22:27:19.909505+00:00"
+  },
+  {
+    "status_code": 410,
+    "status": "Broken (410)",
+    "final_url": "https://docs.google.com/spreadsheets/d/1gCMxRX38egTj3mthZKB88BODsqVG3hjGLox2rRBeiSw/edit?authkey=CMTsxqsP&authkey=CMTsxqsP",
+    "error": "HTTP Error 410: Gone",
+    "source_id": 12,
+    "name": "Crisis Mapping Deployments",
+    "url": "https://docs.google.com/spreadsheet/ccc?authkey=CMTsxqsP&key=0Am3aiDauTC9ndHFOdGxsM2lnTUJXUDR3LVVIZjJnUGc&authkey=CMTsxqsP#gid=0",
+    "checked_at": "2026-06-16T22:27:19.909505+00:00"
+  },
+  {
+    "status_code": 200,
+    "status": "Working",
+    "final_url": "https://dataportals.org/",
+    "error": "",
+    "source_id": 13,
+    "name": "datacatalogs.org",
+    "url": "https://dataportals.org/",
+    "checked_at": "2026-06-16T22:27:19.909505+00:00"
+  }
+]

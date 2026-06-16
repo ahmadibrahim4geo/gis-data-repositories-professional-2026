@@ -1,0 +1,19 @@
+body { background: #0f172a; color: #e2e8f0; }
+h1 small { font-size: .5em; opacity: .6; }
+.filters .card { background: #1e293b; border: 1px solid #334155; }
+.filters .card-header { background: #334155; border-bottom: 1px solid #475569; }
+#stats { font-size: .85rem; }
+#stats .badge { font-size: .8rem; }
+#results .card { background: #1e293b; border: 1px solid #334155; transition: .2s; }
+#results .card:hover { border-color: #3b82f6; box-shadow: 0 0 12px rgba(59,130,246,.15); }
+#results .card-header { background: #334155; border-bottom: 1px solid #475569; font-weight: 600; }
+.status-Working { color: #4ade80; }
+.status-Redirected { color: #facc15; }
+.status-Broken { color: #f87171; }
+.status-Dead { color: #ef4444; }
+.status-Timeout { color: #fb923c; }
+.status-Empty { color: #94a3b8; }
+#loading { display: none; }
+.form-control, .form-select { background: #0f172a; border: 1px solid #334155; color: #e2e8f0; }
+.form-control:focus, .form-select:focus { background: #0f172a; border-color: #3b82f6; color: #e2e8f0; box-shadow: 0 0 0 .2rem rgba(59,130,246,.25); }
+.badge-cat { background: #1e40af; }
