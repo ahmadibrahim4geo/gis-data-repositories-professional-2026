@@ -5,88 +5,127 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GIS Data Repositories Professional 2026 — Demo</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 <style>
-body { background: #0f172a; color: #e2e8f0; }
-h1 small { font-size: .5em; opacity: .6; }
-.filters .card { background: #1e293b; border: 1px solid #334155; }
-.filters .card-header { background: #334155; border-bottom: 1px solid #475569; }
+:root {
+  --bg-body: #080e1a;
+  --bg-card: #111b2e;
+  --bg-card-header: #1a2744;
+  --border-card: #23304f;
+  --text-primary: #f1f5f9;
+  --text-secondary: #b0c4de;
+  --text-muted: #8899b4;
+  --accent: #60a5fa;
+}
+body { background: var(--bg-body); color: var(--text-primary); font-size: .95rem; }
+.nav-bar { background: #0d1528; border-bottom: 1px solid var(--border-card); padding: .5rem 1rem; }
+.nav-bar a { color: var(--accent); text-decoration: none; font-size: .85rem; }
+.nav-bar a:hover { text-decoration: underline; }
+.nav-bar .sep { color: #334155; margin: 0 .5rem; }
+h1 { font-size: 1.4rem; }
+h1 small { font-size: .6em; opacity: .7; font-weight: 400; }
+.filters .card { background: var(--bg-card); border: 1px solid var(--border-card); }
+.filters .card-header { background: var(--bg-card-header); border-bottom: 1px solid var(--border-card); color: var(--text-primary); font-weight: 600; font-size: .85rem; }
 #stats .badge { font-size: .8rem; }
-#results .card { background: #1e293b; border: 1px solid #334155; transition: .2s; }
-#results .card:hover { border-color: #3b82f6; box-shadow: 0 0 12px rgba(59,130,246,.15); }
-#results .card-header { background: #334155; border-bottom: 1px solid #475569; font-weight: 600; }
-.form-control, .form-select { background: #0f172a; border: 1px solid #334155; color: #e2e8f0; }
-.form-control:focus, .form-select:focus { background: #0f172a; border-color: #3b82f6; color: #e2e8f0; box-shadow: 0 0 0 .2rem rgba(59,130,246,.25); }
-.badge-cat { background: #1e40af; }
-footer { border-top: 1px solid #334155; font-size: .85rem; }
-a { color: #60a5fa; }
+#results .card { background: var(--bg-card); border: 1px solid var(--border-card); transition: .2s; }
+#results .card:hover { border-color: var(--accent); box-shadow: 0 0 14px rgba(96,165,250,.12); }
+#results .card-header { background: var(--bg-card-header); border-bottom: 1px solid var(--border-card); font-weight: 700; font-size: .9rem; color: #e8edf5; }
+#results .card-body { color: var(--text-primary); }
+#results .card-body .text-muted { color: var(--text-secondary) !important; }
+#results .card-body p { color: #d0dbe8; line-height: 1.4; }
+.form-control, .form-select { background: #0a1225; border: 1px solid var(--border-card); color: var(--text-primary); }
+.form-control:focus, .form-select:focus { background: #0a1225; border-color: var(--accent); color: var(--text-primary); box-shadow: 0 0 0 .2rem rgba(96,165,250,.2); }
+.form-control::placeholder { color: #5a6f8c; }
+.badge-cat { background: #2563eb; color: #fff; font-weight: 500; font-size: .7rem; }
+.badge-gis { background: #1e3a5f; color: #bfdbfe; font-weight: 500; }
+.badge-Working { background: #16a34a; color: #fff; }
+.badge-Redirected { background: #d97706; color: #fff; }
+.badge-Broken { background: #dc2626; color: #fff; }
+.badge-Timeout { background: #ea580c; color: #fff; }
+.badge-Needs, .badge-default { background: #4b5563; color: #f3f4f6; }
+.badge-Access { background: #6b7280; color: #fff; }
+.badge-SSL { background: #b45309; color: #fff; }
+.badge-Dead { background: #991b1b; color: #fff; }
+footer { border-top: 1px solid var(--border-card); font-size: .85rem; color: var(--text-muted); }
+footer a { color: var(--accent); }
 </style>
 </head>
 <body>
+
+<nav class="nav-bar d-flex align-items-center flex-wrap gap-1">
+  <span class="fw-bold" style="color:var(--text-primary);font-size:.9rem"><i class="bi bi-globe2"></i> GIS Repositories</span>
+  <span class="sep">|</span>
+  <a href="https://github.com/ahmadibrahim4geo/gis-data-repositories-professional-2026" target="_blank"><i class="bi bi-github"></i> GitHub</a>
+  <span class="sep">|</span>
+  <a href="https://github.com/ahmadibrahim4geo/gis-data-repositories-professional-2026/releases/latest" target="_blank"><i class="bi bi-tag"></i> Latest Release</a>
+  <span class="sep">|</span>
+  <a href="https://github.com/ahmadibrahim4geo/gis-data-repositories-professional-2026/releases/download/v1.0.0/GIS_Data_Repositories_Professional_2026_v1.0.0.zip" target="_blank"><i class="bi bi-download"></i> Download ZIP</a>
+</nav>
+
 <div class="container-fluid py-3">
-  <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+  <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
     <h1><i class="bi bi-globe2"></i> GIS Data Repositories <small id="totalCount">loading...</small></h1>
     <span id="stats">
-      <span class="badge bg-success me-1"><span id="countWorking">0</span> Working</span>
-      <span class="badge bg-warning text-dark me-1"><span id="countRedirected">0</span> Redirected</span>
-      <span class="badge bg-danger me-1"><span id="countBroken">0</span> Issues</span>
-      <span class="badge bg-secondary me-1" id="catCount">0 Categories</span>
+      <span class="badge badge-Working me-1"><span id="countWorking">0</span> Working</span>
+      <span class="badge badge-Redirected me-1"><span id="countRedirected">0</span> Redirected</span>
+      <span class="badge badge-Broken me-1"><span id="countBroken">0</span> Issues</span>
+      <span class="badge badge-Needs me-1" id="catCount">0 Categories</span>
     </span>
   </div>
 
   <div class="row g-2 mb-3 filters">
     <div class="col-md-4">
       <div class="card">
-        <div class="card-header py-1"><b>Search</b></div>
+        <div class="card-header py-1"><i class="bi bi-search"></i> Search</div>
         <div class="card-body py-2">
-          <input id="search" class="form-control form-control-sm" placeholder="Type to search..." oninput="filterData()">
+          <input id="search" class="form-control form-control-sm" placeholder="Type to search names, descriptions, URLs..." oninput="filterData()">
         </div>
       </div>
     </div>
     <div class="col-md-2">
       <div class="card">
-        <div class="card-header py-1"><b>Category</b></div>
+        <div class="card-header py-1"><i class="bi bi-folder"></i> Category</div>
         <div class="card-body py-2">
           <select id="category" class="form-select form-select-sm" onchange="filterData()">
-            <option value="">All</option>
+            <option value="">All Categories</option>
           </select>
         </div>
       </div>
     </div>
     <div class="col-md-2">
       <div class="card">
-        <div class="card-header py-1"><b>Status</b></div>
+        <div class="card-header py-1"><i class="bi bi-activity"></i> Status</div>
         <div class="card-body py-2">
           <select id="status" class="form-select form-select-sm" onchange="filterData()">
-            <option value="">All</option>
+            <option value="">All Statuses</option>
           </select>
         </div>
       </div>
     </div>
     <div class="col-md-2">
       <div class="card">
-        <div class="card-header py-1"><b>Data Type</b></div>
+        <div class="card-header py-1"><i class="bi bi-file-earmark-bar-graph"></i> Data Type</div>
         <div class="card-body py-2">
           <select id="dataType" class="form-select form-select-sm" onchange="filterData()">
-            <option value="">All</option>
+            <option value="">All Types</option>
           </select>
         </div>
       </div>
     </div>
     <div class="col-md-2 d-flex align-items-end gap-2">
-      <button class="btn btn-sm btn-outline-info" onclick="clearFilters()">Clear</button>
+      <button class="btn btn-sm btn-outline-info" onclick="clearFilters()"><i class="bi bi-x-lg"></i> Clear</button>
       <span id="count" class="badge bg-primary fs-6">0</span>
     </div>
   </div>
 
-  <div id="results" class="row g-2"></div>
+  <div id="results" class="row g-3"></div>
 
-  <footer class="mt-4 pt-3 text-center text-muted">
-    <p>GIS Data Repositories Professional 2026 — Static Demo for GitHub Pages</p>
-    <p>Data licenses belong to original data providers. <a href="https://github.com/ahmadibrahim4geo/gis-data-repositories-professional-2026" target="_blank">GitHub Repository</a></p>
+  <footer class="mt-4 pt-3 pb-2 text-center">
+    <p class="mb-1">GIS Data Repositories Professional 2026 — Static Demo for GitHub Pages</p>
+    <p class="mb-0">Data licenses belong to original data providers. Contribute on <a href="https://github.com/ahmadibrahim4geo/gis-data-repositories-professional-2026" target="_blank">GitHub</a>.</p>
   </footer>
 </div>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <script>
 let DATA = [];
 
@@ -96,8 +135,20 @@ function getVal(d, ...keys) {
 }
 
 function statusBadge(s) {
-  const m = {'Working':'success','Redirected':'warning text-dark','Broken (404)':'danger','Broken':'danger','Dead Domain':'danger','Timeout':'warning text-dark','Access Restricted':'secondary','SSL Error':'warning','Server Error':'danger'};
-  return `<span class="badge bg-${m[s]||'secondary'}">${s}</span>`;
+  const cls = ({
+    'Working':'badge-Working',
+    'Redirected':'badge-Redirected',
+    'Broken':'badge-Broken',
+    'Broken (404)':'badge-Broken',
+    'Dead Domain':'badge-Dead',
+    'Dead':'badge-Dead',
+    'Timeout':'badge-Timeout',
+    'Access Restricted':'badge-Access Restricted',
+    'SSL Error':'badge-SSL Error',
+    'Server Error':'badge-Broken',
+    'Needs Review':'badge-Needs'
+  })[s] || 'badge-default';
+  return `<span class="badge ${cls}">${s}</span>`;
 }
 
 function populateSelect(id, values) {
@@ -111,7 +162,7 @@ async function loadData() {
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     DATA = await resp.json();
   } catch(e) {
-    document.getElementById('results').innerHTML = `<div class="col-12 text-center py-5"><h3>Data not available</h3><p class="text-muted">${e.message}</p><p>Run the export script first: <code>python scripts/export_excel_to_csv_json.py</code> and copy JSON to <code>docs/data/</code></p></div>`;
+    document.getElementById('results').innerHTML = '<div class="col-12 text-center py-5"><h3><i class="bi bi-exclamation-triangle"></i> Data not available</h3><p class="text-secondary">' + e.message + '</p><p class="text-muted">Run the export script first: <code>python scripts/export_excel_to_csv_json.py</code> and copy JSON to <code>docs/data/</code></p></div>';
     return;
   }
   const cats = [...new Set(DATA.map(d => getVal(d, 'Category', 'category')).filter(Boolean))].sort();
@@ -156,18 +207,17 @@ function filterData() {
   document.getElementById('countWorking').textContent = stats.Working;
   document.getElementById('countRedirected').textContent = stats.Redirected;
   document.getElementById('countBroken').textContent = stats.Broken;
-
   render(filtered);
 }
 
 function render(data) {
   const c = document.getElementById('results');
   if (!data.length) {
-    c.innerHTML = '<div class="col-12 text-center py-4 text-muted"><i class="bi bi-inbox fs-1"></i><p class="mt-2">No matching entries</p></div>';
+    c.innerHTML = '<div class="col-12 text-center py-5 text-muted"><i class="bi bi-inbox fs-1"></i><p class="mt-2 fs-5">No matching entries</p></div>';
     return;
   }
   c.innerHTML = data.map(d => {
-    const name = getVal(d, 'Source Name', 'name') || '<em>Unnamed</em>';
+    const name = getVal(d, 'Source Name', 'name') || '<em class="text-muted">Unnamed</em>';
     const desc = getVal(d, 'Description', 'description');
     const url = getVal(d, 'Updated URL', 'Original URL', 'URL', 'url');
     const domain = getVal(d, 'Domain', 'domain');
@@ -180,18 +230,18 @@ function render(data) {
 
     return `<div class="col-lg-4 col-md-6">
       <div class="card h-100">
-        <div class="card-header py-1 d-flex justify-content-between align-items-center">
-          <span class="small text-truncate me-1">${name}</span>
+        <div class="card-header py-2 d-flex justify-content-between align-items-center">
+          <span class="text-truncate me-2 fw-semibold">${name}</span>
           <span class="badge badge-cat flex-shrink-0">${category || '—'}</span>
         </div>
-        <div class="card-body py-2 small">
-          <p class="mb-1">${desc || '<span class="text-muted">No description</span>'}</p>
-          <div class="mb-1">${statusBadge(status)}</div>
-          ${url ? `<div class="text-truncate mb-1"><i class="bi bi-link-45deg"></i> <a href="${url}" target="_blank" style="word-break:break-all">${url}</a></div>` : ''}
-          <div class="text-muted"><i class="bi bi-building"></i> ${domain || '—'}</div>
-          <div class="text-muted"><i class="bi bi-file-earmark-bar-graph"></i> ${dtype || '—'} ${coverage ? '| ' + coverage : ''}</div>
-          ${license ? `<div class="text-muted small"><i class="bi bi-info-circle"></i> ${license}</div>` : ''}
-          ${notes ? `<div class="text-muted small mt-1"><i class="bi bi-sticky"></i> ${notes}</div>` : ''}
+        <div class="card-body py-2" style="font-size:.88rem">
+          <p class="mb-2">${desc || '<span class="text-muted fst-italic">No description</span>'}</p>
+          <div class="mb-2">${statusBadge(status)}</div>
+          ${url ? '<div class="text-truncate mb-1"><i class="bi bi-link-45deg text-info"></i> <a href="' + url + '" target="_blank" class="link-info fw-medium" style="word-break:break-all">' + url + '</a></div>' : ''}
+          <div class="text-secondary small"><i class="bi bi-building"></i> ' + (domain || '<span class="fst-italic">—</span>') + '</div>
+          <div class="text-secondary small"><i class="bi bi-file-earmark-bar-graph"></i> ' + (dtype || '<span class="fst-italic">—</span>') + (coverage ? ' <span class="text-muted">|</span> ' + coverage : '') + '</div>
+          ${license ? '<div class="text-secondary small"><i class="bi bi-info-circle"></i> ' + license + '</div>' : ''}
+          ${notes ? '<div class="text-muted small mt-1 border-top pt-1" style="border-color:#23304f !important"><i class="bi bi-sticky"></i> ' + notes + '</div>' : ''}
         </div>
       </div>
     </div>`;
