@@ -237,11 +237,11 @@ function render(data) {
         <div class="card-body py-2" style="font-size:.88rem">
           <p class="mb-2">${desc || '<span class="text-muted fst-italic">No description</span>'}</p>
           <div class="mb-2">${statusBadge(status)}</div>
-          ${url ? '<div class="text-truncate mb-1"><i class="bi bi-link-45deg text-info"></i> <a href="' + url + '" target="_blank" class="link-info fw-medium" style="word-break:break-all">' + url + '</a></div>' : ''}
-          <div class="text-secondary small"><i class="bi bi-building"></i> ' + (domain || '<span class="fst-italic">—</span>') + '</div>
-          <div class="text-secondary small"><i class="bi bi-file-earmark-bar-graph"></i> ' + (dtype || '<span class="fst-italic">—</span>') + (coverage ? ' <span class="text-muted">|</span> ' + coverage : '') + '</div>
-          ${license ? '<div class="text-secondary small"><i class="bi bi-info-circle"></i> ' + license + '</div>' : ''}
-          ${notes ? '<div class="text-muted small mt-1 border-top pt-1" style="border-color:#23304f !important"><i class="bi bi-sticky"></i> ' + notes + '</div>' : ''}
+          ${url ? `<div class="text-truncate mb-1"><i class="bi bi-link-45deg text-info"></i> <a href="${url}" target="_blank" class="link-info fw-medium" style="word-break:break-all">${url}</a></div>` : ''}
+          <div class="text-secondary small"><i class="bi bi-building"></i> ${domain || '<span class="fst-italic">—</span>'}</div>
+          <div class="text-secondary small"><i class="bi bi-file-earmark-bar-graph"></i> ${dtype || '<span class="fst-italic">—</span>'}${coverage ? ` <span class="text-muted">|</span> ${coverage}` : ''}</div>
+          ${license ? `<div class="text-secondary small"><i class="bi bi-info-circle"></i> ${license}</div>` : ''}
+          ${notes ? `<div class="text-muted small mt-1 border-top pt-1" style="border-color:#23304f !important"><i class="bi bi-sticky"></i> ${notes}</div>` : ''}
         </div>
       </div>
     </div>`;
