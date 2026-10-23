@@ -1,262 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GIS Data Repositories Professional 2026 — Demo</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-<style>
-:root {
-  --bg-body: #080e1a;
-  --bg-card: #111b2e;
-  --bg-card-header: #1a2744;
-  --border-card: #23304f;
-  --text-primary: #f1f5f9;
-  --text-secondary: #b0c4de;
-  --text-muted: #8899b4;
-  --accent: #60a5fa;
-}
-body { background: var(--bg-body); color: var(--text-primary); font-size: .95rem; }
-.nav-bar { background: #0d1528; border-bottom: 1px solid var(--border-card); padding: .5rem 1rem; }
-.nav-bar a { color: var(--accent); text-decoration: none; font-size: .85rem; }
-.nav-bar a:hover { text-decoration: underline; }
-.nav-bar .sep { color: #334155; margin: 0 .5rem; }
-h1 { font-size: 1.4rem; }
-h1 small { font-size: .6em; opacity: .7; font-weight: 400; }
-.filters .card { background: var(--bg-card); border: 1px solid var(--border-card); }
-.filters .card-header { background: var(--bg-card-header); border-bottom: 1px solid var(--border-card); color: var(--text-primary); font-weight: 600; font-size: .85rem; }
-#stats .badge { font-size: .8rem; }
-#results .card { background: var(--bg-card); border: 1px solid var(--border-card); transition: .2s; }
-#results .card:hover { border-color: var(--accent); box-shadow: 0 0 14px rgba(96,165,250,.12); }
-#results .card-header { background: var(--bg-card-header); border-bottom: 1px solid var(--border-card); font-weight: 700; font-size: .9rem; color: #e8edf5; }
-#results .card-body { color: var(--text-primary); }
-#results .card-body .text-muted { color: var(--text-secondary) !important; }
-#results .card-body p { color: #d0dbe8; line-height: 1.4; }
-.form-control, .form-select { background: #0a1225; border: 1px solid var(--border-card); color: var(--text-primary); }
-.form-control:focus, .form-select:focus { background: #0a1225; border-color: var(--accent); color: var(--text-primary); box-shadow: 0 0 0 .2rem rgba(96,165,250,.2); }
-.form-control::placeholder { color: #5a6f8c; }
-.badge-cat { background: #2563eb; color: #fff; font-weight: 500; font-size: .7rem; }
-.badge-gis { background: #1e3a5f; color: #bfdbfe; font-weight: 500; }
-.badge-Working { background: #16a34a; color: #fff; }
-.badge-Redirected { background: #d97706; color: #fff; }
-.badge-Broken { background: #dc2626; color: #fff; }
-.badge-Timeout { background: #ea580c; color: #fff; }
-.badge-Needs, .badge-default { background: #4b5563; color: #f3f4f6; }
-.badge-Access { background: #6b7280; color: #fff; }
-.badge-SSL { background: #b45309; color: #fff; }
-.badge-Dead { background: #991b1b; color: #fff; }
-footer { border-top: 1px solid var(--border-card); font-size: .85rem; color: var(--text-muted); }
-footer a { color: var(--accent); }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101820">
+  <meta name="description" content="Discover open GIS data, satellite imagery, elevation models, geospatial portals and mapping resources in an accessible bilingual catalog.">
+  <title>GIS Data Explorer | Professional Geospatial Data Directory</title>
+  <link rel="stylesheet" href="assets/catalog.css">
+  <script defer src="assets/catalog.js"></script>
 </head>
 <body>
+  <a class="skip-link" href="#results-heading" data-i18n="skip">Skip to results</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="GIS Data Explorer home">
+        <span class="brand-icon" aria-hidden="true">◎</span>
+        <span><strong>GIS DATA EXPLORER</strong><small data-i18n="brandTag">Professional GIS Data Directory</small></span>
+      </a>
+      <nav class="top-actions" aria-label="Primary navigation">
+        <a class="header-link" href="methodology.md" target="_blank" rel="noopener" data-i18n="methodology">Methodology</a>
+        <a class="header-link" href="https://github.com/ahmadibrahim4geo/gis-data-repositories-professional-2026" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <button type="button" id="lang-toggle" class="utility-btn" aria-label="Switch language" title="Switch language">العربية</button>
+        <button type="button" id="theme-toggle" class="utility-btn theme-btn" aria-label="Toggle light or dark theme" title="Toggle theme">☀</button>
+      </nav>
+    </div>
+  </header>
 
-<nav class="nav-bar d-flex align-items-center flex-wrap gap-1">
-  <span class="fw-bold" style="color:var(--text-primary);font-size:.9rem"><i class="bi bi-globe2"></i> GIS Repositories</span>
-  <span class="sep">|</span>
-  <a href="https://github.com/ahmadibrahim4geo/gis-data-repositories-professional-2026" target="_blank"><i class="bi bi-github"></i> GitHub</a>
-  <span class="sep">|</span>
-  <a href="https://github.com/ahmadibrahim4geo/gis-data-repositories-professional-2026/releases/latest" target="_blank"><i class="bi bi-tag"></i> Latest Release</a>
-  <span class="sep">|</span>
-  <a href="https://github.com/ahmadibrahim4geo/gis-data-repositories-professional-2026/releases/download/v1.0.0/GIS_Data_Repositories_Professional_2026_v1.0.0.zip" target="_blank"><i class="bi bi-download"></i> Download ZIP</a>
-</nav>
-
-<div class="container-fluid py-3">
-  <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-    <h1><i class="bi bi-globe2"></i> GIS Data Repositories <small id="totalCount">loading...</small></h1>
-    <span id="stats">
-      <span class="badge badge-Working me-1"><span id="countWorking">0</span> Working</span>
-      <span class="badge badge-Redirected me-1"><span id="countRedirected">0</span> Redirected</span>
-      <span class="badge badge-Broken me-1"><span id="countBroken">0</span> Issues</span>
-      <span class="badge badge-Needs me-1" id="catCount">0 Categories</span>
-    </span>
-  </div>
-
-  <div class="row g-2 mb-3 filters">
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-header py-1"><i class="bi bi-search"></i> Search</div>
-        <div class="card-body py-2">
-          <input id="search" class="form-control form-control-sm" placeholder="Type to search names, descriptions, URLs..." oninput="filterData()">
+  <main id="top">
+    <section class="intro wrap" aria-labelledby="page-title">
+      <div class="eyebrow"><span class="signal" aria-hidden="true"></span> <span data-i18n="eyebrow">OPEN GEOSPATIAL KNOWLEDGE · 2026 EDITION</span></div>
+      <div class="intro-main">
+        <div>
+          <h1 id="page-title"><span data-i18n="heroTitle">Discover geospatial data,</span><br><em data-i18n="heroHighlight">without the guesswork.</em></h1>
+          <p class="subtitle" data-i18n="heroDesc">Explore a curated directory of geospatial portals, satellite imagery, DEMs, climate data, boundaries and GIS resources. Filter by topic, access, region and last recorded link status.</p>
+          <p class="audit-note" data-i18n="auditNote">Link statuses are from the last recorded audit, not live availability checks.</p>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div><div class="hero-orbit orbit-three"></div>
+          <div class="hero-globe">◎</div>
+          <span class="orbit-pin pin-one"></span><span class="orbit-pin pin-two"></span><span class="orbit-pin pin-three"></span>
         </div>
       </div>
-    </div>
-    <div class="col-md-2">
-      <div class="card">
-        <div class="card-header py-1"><i class="bi bi-folder"></i> Category</div>
-        <div class="card-body py-2">
-          <select id="category" class="form-select form-select-sm" onchange="filterData()">
-            <option value="">All Categories</option>
-          </select>
-        </div>
+      <div class="metric-strip" aria-label="Catalog summary">
+        <div class="metric"><span class="metric-icon">▦</span><div><strong id="metric-total">—</strong><small data-i18n="metricSources">Catalogued sources</small></div></div>
+        <div class="metric"><span class="metric-icon">◈</span><div><strong id="metric-categories">—</strong><small data-i18n="metricCategories">Data categories</small></div></div>
+        <div class="metric"><span class="metric-icon">✓</span><div><strong id="metric-working">—</strong><small data-i18n="metricWorking">Working at last audit</small></div></div>
+        <div class="metric"><span class="metric-icon">⌁</span><div><strong id="metric-saved">0</strong><small data-i18n="metricSaved">Saved favorites</small></div></div>
       </div>
-    </div>
-    <div class="col-md-2">
-      <div class="card">
-        <div class="card-header py-1"><i class="bi bi-activity"></i> Status</div>
-        <div class="card-body py-2">
-          <select id="status" class="form-select form-select-sm" onchange="filterData()">
-            <option value="">All Statuses</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="card">
-        <div class="card-header py-1"><i class="bi bi-file-earmark-bar-graph"></i> Data Type</div>
-        <div class="card-body py-2">
-          <select id="dataType" class="form-select form-select-sm" onchange="filterData()">
-            <option value="">All Types</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-2 d-flex align-items-end gap-2">
-      <button class="btn btn-sm btn-outline-info" onclick="clearFilters()"><i class="bi bi-x-lg"></i> Clear</button>
-      <span id="count" class="badge bg-primary fs-6">0</span>
-    </div>
-  </div>
+    </section>
 
-  <div id="results" class="row g-3"></div>
+    <section class="workspace wrap" aria-label="Data discovery workspace">
+      <aside class="filters-panel" id="filters-panel" aria-labelledby="filters-heading">
+        <div class="panel-title"><h2 id="filters-heading" data-i18n="filterTitle">Refine your search</h2><button class="text-btn" type="button" id="reset-side" data-i18n="reset">Reset</button></div>
+        <div class="field"><label for="filter-category" data-i18n="category">Category</label><select id="filter-category"><option value="" data-i18n="allCategories">All categories</option></select></div>
+        <div class="field"><label for="filter-type" data-i18n="dataType">Data type</label><select id="filter-type"><option value="" data-i18n="allTypes">All types</option></select></div>
+        <div class="field"><label for="filter-status" data-i18n="linkStatus">Last checked status</label><select id="filter-status"><option value="" data-i18n="allStatuses">All statuses</option></select></div>
+        <div class="field"><label for="filter-coverage" data-i18n="coverage">Coverage / region</label><input type="search" id="filter-coverage" data-placeholder="coveragePlaceholder" placeholder="e.g. Global, Africa, Egypt"></div>
+        <div class="field"><label for="filter-access" data-i18n="access">Access type</label><select id="filter-access"><option value="" data-i18n="allAccess">All access types</option></select></div>
+        <label class="checkbox-line"><input type="checkbox" id="favorites-only"><span aria-hidden="true">★</span><span data-i18n="favoritesOnly">Saved sources only</span></label>
+        <div class="filter-hint"><span>ⓘ</span><p data-i18n="filtersHelp">Filters work together. Original source records are not modified.</p></div>
+      </aside>
 
-  <footer class="mt-4 pt-3 pb-2 text-center">
-    <p class="mb-1">GIS Data Repositories Professional 2026 — Static Demo for GitHub Pages</p>
-    <p class="mb-0">Data licenses belong to original data providers. Contribute on <a href="https://github.com/ahmadibrahim4geo/gis-data-repositories-professional-2026" target="_blank">GitHub</a>.</p>
+      <div class="results-panel">
+        <div class="search-block">
+          <label class="sr-only" for="search" data-i18n="searchLabel">Search all sources</label>
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="search" type="search" autocomplete="off" data-placeholder="searchPlaceholder" placeholder="Search names, descriptions, URLs and providers…">
+          <kbd>/</kbd>
+          <button type="button" id="mobile-filters" class="mobile-filter-btn" aria-controls="filters-panel" aria-expanded="false" data-i18n="filters">Filters</button>
+        </div>
+        <div class="results-toolbar">
+          <div><h2 id="results-heading" data-i18n="resultsTitle">Explore resources</h2><p class="results-subtitle"><span id="result-count" aria-live="polite">—</span> <span data-i18n="resultsOf">of</span> <span id="result-total">—</span> <span data-i18n="resources">resources</span></p></div>
+          <div class="toolbar-controls">
+            <label class="sr-only" for="sort" data-i18n="sortLabel">Sort results</label>
+            <select id="sort" class="sort-select">
+              <option value="name" data-i18n="sortName">Name A–Z</option>
+              <option value="nameDesc" data-i18n="sortNameDesc">Name Z–A</option>
+              <option value="status" data-i18n="sortStatus">Working first</option>
+              <option value="quality" data-i18n="sortQuality">Quality score</option>
+            </select>
+            <div class="view-toggle" role="group" aria-label="Results layout">
+              <button id="grid-view" type="button" aria-label="Grid layout" aria-pressed="true" title="Grid layout">▦</button>
+              <button id="list-view" type="button" aria-label="List layout" aria-pressed="false" title="List layout">☷</button>
+            </div>
+            <button id="export-csv" class="export-btn" type="button" data-i18n="export">Export CSV</button>
+          </div>
+        </div>
+        <div class="active-filters" id="active-filters" aria-live="polite"></div>
+        <div id="notice" class="notice" role="status" hidden></div>
+        <div id="results" class="results-grid" aria-live="polite" aria-busy="true">
+          <div class="loading-state"><span class="spinner"></span><span data-i18n="loading">Loading the catalog…</span></div>
+        </div>
+        <div class="pager" id="pager" hidden>
+          <button id="prev-page" type="button" data-i18n="previous">← Previous</button>
+          <span id="page-indicator" aria-live="polite"></span>
+          <button id="next-page" type="button" data-i18n="next">Next →</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <div><strong>GIS DATA EXPLORER</strong><p data-i18n="footerText">Curated by Ahmad Ibrahim. Dataset contents and third-party licenses remain with their respective providers.</p></div>
+    <div class="footer-links"><a href="data_dictionary.md" target="_blank" rel="noopener" data-i18n="dataDictionary">Data dictionary</a><a href="methodology.md" target="_blank" rel="noopener" data-i18n="methodology">Methodology</a><a href="https://github.com/ahmadibrahim4geo/gis-data-repositories-professional-2026" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
   </footer>
-</div>
-
-<script>
-let DATA = [];
-
-function getVal(d, ...keys) {
-  for (const k of keys) { const v = d[k]; if (v) return v; }
-  return '';
-}
-
-function statusBadge(s) {
-  const cls = ({
-    'Working':'badge-Working',
-    'Redirected':'badge-Redirected',
-    'Broken':'badge-Broken',
-    'Broken (404)':'badge-Broken',
-    'Dead Domain':'badge-Dead',
-    'Dead':'badge-Dead',
-    'Timeout':'badge-Timeout',
-    'Access Restricted':'badge-Access Restricted',
-    'SSL Error':'badge-SSL Error',
-    'Server Error':'badge-Broken',
-    'Needs Review':'badge-Needs'
-  })[s] || 'badge-default';
-  return `<span class="badge ${cls}">${s}</span>`;
-}
-
-function populateSelect(id, values) {
-  const sel = document.getElementById(id);
-  values.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; sel.appendChild(o); });
-}
-
-async function loadData() {
-  try {
-    let resp = await fetch('data/master_index.json');
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    DATA = await resp.json();
-  } catch(e) {
-    document.getElementById('results').innerHTML = '<div class="col-12 text-center py-5"><h3><i class="bi bi-exclamation-triangle"></i> Data not available</h3><p class="text-secondary">' + e.message + '</p><p class="text-muted">Run the export script first: <code>python scripts/export_excel_to_csv_json.py</code> and copy JSON to <code>docs/data/</code></p></div>';
-    return;
-  }
-  const cats = [...new Set(DATA.map(d => getVal(d, 'Category', 'category')).filter(Boolean))].sort();
-  const sts = [...new Set(DATA.map(d => getVal(d, 'Link Status', 'status')).filter(Boolean))].sort();
-  const dts = [...new Set(DATA.map(d => getVal(d, 'Data Type', 'data_type')).filter(Boolean))].sort();
-  populateSelect('category', cats);
-  populateSelect('status', sts);
-  populateSelect('dataType', dts);
-  document.getElementById('catCount').textContent = cats.length + ' Categories';
-  filterData();
-}
-
-function filterData() {
-  const q = document.getElementById('search').value.toLowerCase().trim();
-  const cat = document.getElementById('category').value;
-  const st = document.getElementById('status').value;
-  const dt = document.getElementById('dataType').value;
-
-  const filtered = DATA.filter(d => {
-    const name = getVal(d, 'Source Name', 'name').toLowerCase();
-    const desc = getVal(d, 'Description', 'description').toLowerCase();
-    const url = getVal(d, 'Updated URL', 'Original URL', 'URL', 'url').toLowerCase();
-    const domain = getVal(d, 'Domain', 'domain').toLowerCase();
-    const notes = getVal(d, 'Notes', 'notes').toLowerCase();
-    if (q && !(name.includes(q) || desc.includes(q) || url.includes(q) || domain.includes(q) || notes.includes(q))) return false;
-    if (cat && getVal(d, 'Category', 'category') !== cat) return false;
-    if (st && getVal(d, 'Link Status', 'status') !== st) return false;
-    if (dt && getVal(d, 'Data Type', 'data_type') !== dt) return false;
-    return true;
-  });
-
-  document.getElementById('totalCount').textContent = DATA.length + ' entries';
-  document.getElementById('count').textContent = filtered.length;
-
-  const stats = {Working:0,Redirected:0,Broken:0};
-  filtered.forEach(d => {
-    const s = getVal(d, 'Link Status', 'status');
-    if (s === 'Working') stats.Working++;
-    else if (s === 'Redirected') stats.Redirected++;
-    else stats.Broken++;
-  });
-  document.getElementById('countWorking').textContent = stats.Working;
-  document.getElementById('countRedirected').textContent = stats.Redirected;
-  document.getElementById('countBroken').textContent = stats.Broken;
-  render(filtered);
-}
-
-function render(data) {
-  const c = document.getElementById('results');
-  if (!data.length) {
-    c.innerHTML = '<div class="col-12 text-center py-5 text-muted"><i class="bi bi-inbox fs-1"></i><p class="mt-2 fs-5">No matching entries</p></div>';
-    return;
-  }
-  c.innerHTML = data.map(d => {
-    const name = getVal(d, 'Source Name', 'name') || '<em class="text-muted">Unnamed</em>';
-    const desc = getVal(d, 'Description', 'description');
-    const url = getVal(d, 'Updated URL', 'Original URL', 'URL', 'url');
-    const domain = getVal(d, 'Domain', 'domain');
-    const category = getVal(d, 'Category', 'category');
-    const status = getVal(d, 'Link Status', 'status');
-    const dtype = getVal(d, 'Data Type', 'data_type');
-    const coverage = getVal(d, 'Coverage', 'coverage');
-    const license = getVal(d, 'License Type', 'license');
-    const notes = getVal(d, 'Notes', 'notes');
-
-    return `<div class="col-lg-4 col-md-6">
-      <div class="card h-100">
-        <div class="card-header py-2 d-flex justify-content-between align-items-center">
-          <span class="text-truncate me-2 fw-semibold">${name}</span>
-          <span class="badge badge-cat flex-shrink-0">${category || '—'}</span>
-        </div>
-        <div class="card-body py-2" style="font-size:.88rem">
-          <p class="mb-2">${desc || '<span class="text-muted fst-italic">No description</span>'}</p>
-          <div class="mb-2">${statusBadge(status)}</div>
-          ${url ? `<div class="text-truncate mb-1"><i class="bi bi-link-45deg text-info"></i> <a href="${url}" target="_blank" class="link-info fw-medium" style="word-break:break-all">${url}</a></div>` : ''}
-          <div class="text-secondary small"><i class="bi bi-building"></i> ${domain || '<span class="fst-italic">—</span>'}</div>
-          <div class="text-secondary small"><i class="bi bi-file-earmark-bar-graph"></i> ${dtype || '<span class="fst-italic">—</span>'}${coverage ? ` <span class="text-muted">|</span> ${coverage}` : ''}</div>
-          ${license ? `<div class="text-secondary small"><i class="bi bi-info-circle"></i> ${license}</div>` : ''}
-          ${notes ? `<div class="text-muted small mt-1 border-top pt-1" style="border-color:#23304f !important"><i class="bi bi-sticky"></i> ${notes}</div>` : ''}
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function clearFilters() {
-  document.getElementById('search').value = '';
-  document.getElementById('category').value = '';
-  document.getElementById('status').value = '';
-  document.getElementById('dataType').value = '';
-  filterData();
-}
-
-loadData();
-</script>
+  <script>window.CATALOG_CONFIG = { dataUrl: 'data/master_index.json' };</script>
 </body>
 </html>
