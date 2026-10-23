@@ -5,9 +5,9 @@ A curated professional catalog of free and open GIS data repositories, geospatia
 ## Features
 
 - **2,660+ curated GIS data sources** across 40+ categories
-- **Bilingual interface** (English / العربية)
+- **Redesigned bilingual portal** (English / العربية) with accessible dark/light themes and responsive layout
 - **Interactive web app** (Flask) with search, filter, and status badges
-- **Static GitHub Pages demo** — no backend required
+- **GitHub Pages data explorer** — paginated results, combined filters, sorting, grid/list views, browser favorites and filtered CSV export; no backend required
 - **Link audit system** to track URL health
 - **CSV / JSON exports** for integration with other tools
 - **GeoJSON map** of GIS data sources
@@ -111,6 +111,12 @@ python scripts/check_urls.py --limit 100
 ```
 
 Results are saved to `data/link_audit_results.csv` and `data/link_audit_results.json`.
+
+## GIS Data Explorer UI
+
+The hosted directory is served from docs/index.html. Source status labels refer to historical audit results rather than real-time availability. Read [the bilingual UI and maintenance guide](docs/UI_GUIDE.md) for interface features and synchronized Flask/Pages assets.
+
+Run node tests/catalog_checks.js from the repository root for source structure and data snapshot checks. Visually review desktop and mobile browsers before future releases.
 
 ## Screenshots
 
